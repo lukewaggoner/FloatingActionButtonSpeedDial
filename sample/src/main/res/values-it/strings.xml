@@ -48,4 +48,5 @@
     <string name="none">Nessuno</string>
     <string name="action_toggle_list">Toggle lista</string>
     <string name="action_toggle_reverse_animation">Toggle reverse animation in chiususa</string>
+    <string name="close_speed_dial_menu">Chiudi menu Speed Dial</string>
 </resources>
