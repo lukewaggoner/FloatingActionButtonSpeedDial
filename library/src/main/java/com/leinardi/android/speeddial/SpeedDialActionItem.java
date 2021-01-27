@@ -16,8 +16,10 @@
 
 package com.leinardi.android.speeddial;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.ContextThemeWrapper;
@@ -54,6 +56,8 @@ public class SpeedDialActionItem implements Parcelable {
     private final int mLabelColor;
     @ColorInt
     private final int mLabelBackgroundColor;
+
+    private final String mTransitionName;
     private final boolean mLabelClickable;
     @FloatingActionButton.Size
     private final int mFabSize;
@@ -72,6 +76,7 @@ public class SpeedDialActionItem implements Parcelable {
         mLabelBackgroundColor = builder.mLabelBackgroundColor;
         mLabelClickable = builder.mLabelClickable;
         mFabSize = builder.mFabSize;
+        mTransitionName = builder.mTransitionName;
         mTheme = builder.mTheme;
     }
 
@@ -135,6 +140,10 @@ public class SpeedDialActionItem implements Parcelable {
         return mTheme;
     }
 
+    public String getTransitionName() {
+        return mTransitionName;
+    }
+
     public FabWithLabelView createFabWithLabelView(Context context) {
         FabWithLabelView fabWithLabelView;
         int theme = getTheme();
@@ -171,6 +180,8 @@ public class SpeedDialActionItem implements Parcelable {
         private int mLabelColor = RESOURCE_NOT_SET;
         @ColorInt
         private int mLabelBackgroundColor = RESOURCE_NOT_SET;
+
+        private String mTransitionName;
         private boolean mLabelClickable = true;
         @FloatingActionButton.Size
         private int mFabSize = SIZE_AUTO;
@@ -266,6 +277,12 @@ public class SpeedDialActionItem implements Parcelable {
             return this;
         }
 
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public Builder setTransitionName(String transitionName){
+            this.mTransitionName = transitionName;
+            return this;
+        }
+
         public SpeedDialActionItem create() {
             return new SpeedDialActionItem(this);
         }
@@ -292,6 +309,7 @@ public class SpeedDialActionItem implements Parcelable {
         dest.writeInt(this.mFabBackgroundColor);
         dest.writeInt(this.mLabelColor);
         dest.writeInt(this.mLabelBackgroundColor);
+        dest.writeString(this.mTransitionName);
         dest.writeByte(this.mLabelClickable ? (byte) 1 : (byte) 0);
         dest.writeInt(this.mFabSize);
         dest.writeInt(this.mTheme);
@@ -307,6 +325,7 @@ public class SpeedDialActionItem implements Parcelable {
         this.mFabBackgroundColor = in.readInt();
         this.mLabelColor = in.readInt();
         this.mLabelBackgroundColor = in.readInt();
+        this.mTransitionName = in.readString();
         this.mLabelClickable = in.readByte() != 0;
         this.mFabSize = in.readInt();
         this.mTheme = in.readInt();

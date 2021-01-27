@@ -154,6 +154,11 @@ public class FabWithLabelView extends LinearLayout {
         SpeedDialActionItem speedDialActionItem = getSpeedDialActionItem();
         setLabelClickable(speedDialActionItem != null && speedDialActionItem.isLabelClickable());
         setFabIcon(actionItem.getFabImageDrawable(getContext()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setTransitionName(actionItem.getTransitionName());
+        }
+
         int imageTintColor = actionItem.getFabImageTintColor();
         if (imageTintColor != RESOURCE_NOT_SET) {
             setFabImageTintColor(imageTintColor);
